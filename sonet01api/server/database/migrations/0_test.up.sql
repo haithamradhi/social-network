@@ -1,0 +1,4 @@
+CREATE TABLE Test (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    message TEXT 
+);
