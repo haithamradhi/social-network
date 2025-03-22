@@ -5,9 +5,7 @@ import (
 	"net/http"
 )
 
-type HealthCheckAPI struct {
-	healthCheckService HealthCheckService
-}
+type HealthCheckAPI struct{}
 
 type HealthCheckAPIInterface interface {
 	CheckHealth(w http.ResponseWriter, r *http.Request)
@@ -15,7 +13,7 @@ type HealthCheckAPIInterface interface {
 
 // HealthCheck is a simple health check handler
 func (h HealthCheckAPI) CheckHealth(w http.ResponseWriter, r *http.Request) {
-	healthCheckService := h.healthCheckService
+	healthCheckService := HealthCheckService{}
 	message := healthCheckService.HealthCheck()
 	fmt.Fprintf(w, message)
 }

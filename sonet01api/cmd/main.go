@@ -9,6 +9,6 @@ func main() {
 
 	fmt.Println("running app..")
 
-	startup.Server("../sonet01.db", "8080")
+	startup.Server("../server/database/sonet01.db", "8080")
 
 }

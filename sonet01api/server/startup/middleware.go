@@ -9,11 +9,8 @@ func AuthMiddleware(f func(http.ResponseWriter, *http.Request)) func(http.Respon
 
 	return func(w http.ResponseWriter, r *http.Request) {
 
-		// read body
-
-		// get token from header
-		token := r.Header.Get("Authorization")
-		fmt.Println(token)
+		// test if user is authenticated / has running session
+		fmt.Println("auth stuff")
 
 		f(w, r)
 	}

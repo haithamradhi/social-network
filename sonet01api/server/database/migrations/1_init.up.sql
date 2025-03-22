@@ -1,3 +1,4 @@
+-- Users table
 CREATE TABLE Users (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     email TEXT NOT NULL UNIQUE,
@@ -13,6 +14,7 @@ CREATE TABLE Users (
     updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 
+-- Posts table
 CREATE TABLE Posts (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     user_id INTEGER NOT NULL,
@@ -26,6 +28,7 @@ CREATE TABLE Posts (
     FOREIGN KEY (group_id) REFERENCES Groups(id) ON DELETE CASCADE
 );
 
+-- Comments table
 CREATE TABLE Comments (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     post_id INTEGER NOT NULL,
@@ -38,6 +41,7 @@ CREATE TABLE Comments (
     FOREIGN KEY (user_id) REFERENCES Users(id) ON DELETE CASCADE
 );
 
+-- Follows table
 CREATE TABLE Follows (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     follower_id INTEGER NOT NULL,
@@ -48,6 +52,7 @@ CREATE TABLE Follows (
     FOREIGN KEY (following_id) REFERENCES Users(id) ON DELETE CASCADE
 );
 
+-- Groups table
 CREATE TABLE Groups (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     creator_id INTEGER NOT NULL,
@@ -55,9 +60,10 @@ CREATE TABLE Groups (
     description TEXT,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     updated_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (creator_id) REFERENCES Users(id) ON DELETE SET NULL
+    FOREIGN KEY (creator_id) REFERENCES Users(id) ON DELETE NULL
 );
 
+-- GroupMembers table
 CREATE TABLE GroupMembers (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     group_id INTEGER NOT NULL,
@@ -68,6 +74,7 @@ CREATE TABLE GroupMembers (
     FOREIGN KEY (user_id) REFERENCES Users(id) ON DELETE CASCADE
 );
 
+-- Events table
 CREATE TABLE Events (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     group_id INTEGER NOT NULL,
@@ -81,6 +88,7 @@ CREATE TABLE Events (
     FOREIGN KEY (creator_id) REFERENCES Users(id) ON DELETE CASCADE
 );
 
+-- EventResponses table
 CREATE TABLE EventResponses (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     event_id INTEGER NOT NULL,
@@ -91,6 +99,7 @@ CREATE TABLE EventResponses (
     FOREIGN KEY (user_id) REFERENCES Users(id) ON DELETE CASCADE
 );
 
+-- Messages table
 CREATE TABLE Messages (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     sender_id INTEGER NOT NULL,
@@ -113,6 +122,7 @@ CREATE TABLE MessageRead (
     FOREIGN KEY (receiver_id) REFERENCES Users(id) ON DELETE CASCADE
 );
 
+-- Notifications table
 CREATE TABLE Notifications (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     user_id INTEGER NOT NULL,
@@ -128,6 +138,7 @@ CREATE TABLE Notifications (
     FOREIGN KEY (related_event_id) REFERENCES Events(id) ON DELETE SET NULL
 );
 
+-- Create indexes for better query performance
 CREATE INDEX idx_posts_user_id ON Posts(user_id);
 CREATE INDEX idx_posts_group_id ON Posts(group_id);
 CREATE INDEX idx_comments_post_id ON Comments(post_id);

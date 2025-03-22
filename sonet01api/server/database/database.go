@@ -24,6 +24,7 @@ func Connect(dbpath string) {
 		fmt.Println("error opening db")
 	}
 	db = newDB
+
 }
 
 // run init database
@@ -66,14 +67,4 @@ func Ping() (err error) {
 		return err
 	}
 	return nil
-}
-
-// close database connection
-func Close() {
-	db.Close()
-}
-
-// db execute
-func Exec(query string, args ...interface{}) (sql.Result, error) {
-	return db.Exec(query, args...)
 }
